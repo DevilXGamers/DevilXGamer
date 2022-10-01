@@ -60,8 +60,9 @@ do
                     if self.Abort then return end
 
                     local Position = Vector3.new(X, Y, Z)
-                    Callback.Build(Position)
-
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 40 then
+                        Callback.Build(Position)
+                    end
                     if not self:IsTaken(Position) then
                         spawn(function()
                             PLACE_BLOCK:InvokeServer({
