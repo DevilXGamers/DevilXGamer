@@ -60,7 +60,7 @@ do
                     if self.Abort then return end
 
                     local Position = Vector3.new(X, Y, Z)
-                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 40 then
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 30 then
                         Callback.Build(Position)
                     end
                     if not self:IsTaken(Position) then
@@ -107,7 +107,7 @@ do
                             })
                         end)
                     end
-                    task.wait()
+                    wait()
                 until v == nil or (not v:IsDescendantOf(workspace)) or self.Abort == true
             end
         end
