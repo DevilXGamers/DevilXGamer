@@ -96,15 +96,17 @@ do
                 repeat
                     if v ~= nil and v:IsDescendantOf(workspace) then
                         Callback.Build(v.Position)
-                        HIT_BLOCK:InvokeServer({
-                            player_tracking_category = "join_from_web";
-                            part = v;
-                            block = v;
-                            norm = v.Position;
-                            pos = Vector3.new(-1, 0, 0)
-                        })
+                        task.spawn(function()
+                            HIT_BLOCK:InvokeServer({
+                                player_tracking_category = "join_from_web";
+                                part = v;
+                                block = v;
+                                norm = v.Position;
+                                pos = Vector3.new(-1, 0, 0)
+                            })
+                        end)
                     end
-                    wait()
+                    task.wait()
                 until v == nil or (not v:IsDescendantOf(workspace)) or self.Abort == true
             end
         end
