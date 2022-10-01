@@ -92,7 +92,7 @@ do
                 break 
             end
 
-            if v.Name ~= "bedrock" and v:FindFirstAncestor("Root") and v:FindFirstAncestor("Root").CFrame:PointToObjectSpace(v.Position) ~= UNBREAKABLE_GRASS_POSITION and (not v:FindFirstChild("portal-to-spawn")) and v.Parent and v.Parent.Name == "Blocks" then
+            if v.Name ~= "bedrock" and v.Parent.Parent:FindFirstChild("Root") and v.Parent.Parent:FindFirstChild("Root").CFrame:PointToObjectSpace(v.Position) ~= UNBREAKABLE_GRASS_POSITION and (not v:FindFirstChild("portal-to-spawn")) and v.Parent and v.Parent.Name == "Blocks" then
                 repeat
                     if v ~= nil and v:IsDescendantOf(workspace) then
                         Callback.Build(v.Position)
