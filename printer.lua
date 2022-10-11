@@ -80,6 +80,37 @@ do
 
         Callback.End()
     end
+    
+    function Printer:ReBuild(Callback)
+        Callback.Start()
+        local Start, End = Vector3.new(math.min(self.Start.X, self.End.X), math.min(self.Start.Y, self.End.Y), math.min(self.Start.Z, self.End.Z)), Vector3.new(math.max(self.Start.X, self.End.X), math.max(self.Start.Y, self.End.Y), math.max(self.Start.Z, self.End.Z))
+        for X = Start.X, End.X, 3 do
+            for Y = Start.Y, End.Y, 3 do
+                for Z = Start.Z, End.Z, 3 do
+                    if self.Abort then return end
+
+                    local Position = Vector3.new(X, Y, Z)
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 30 then
+                        wait(.5)
+                        Callback.Build(Position)
+                    end
+                    if not self:IsTaken(Position) then
+                        spawn(function()
+                            PLACE_BLOCK:InvokeServer({
+                                blockType = self.Block;
+                                cframe = CFrame.new(Position);
+                                player_tracking_category = "join_from_web";
+                                upperSlab = false;
+                            })
+                        end)
+                        task.wait(.5)
+                    end
+                end
+            end
+        end
+
+        Callback.End()
+    end
 
     function Printer:Reverse(Callback)
         Callback.Start()
