@@ -60,9 +60,9 @@ do
                     if self.Abort then return end
 
                     local Position = Vector3.new(X, Y, Z)
-                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 30 then
-                        Callback.Build(Position)
-                    end
+                        if not self:IsTaken(Position) then
+                            Callback.Build(Position)
+                        end
                     if not self:IsTaken(Position) then
                         spawn(function()
                             PLACE_BLOCK:InvokeServer({
@@ -72,7 +72,7 @@ do
                                 upperSlab = false;
                             })
                         end)
-                        HEARTBEAT:wait()
+                        task.wait()
                     end
                 end
             end
@@ -90,10 +90,10 @@ do
                     if self.Abort then return end
 
                     local Position = Vector3.new(X, Y, Z)
-                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).magnitude > 30 then
-                        wait(.5)
-                        Callback.Build(Position)
-                    end
+                        task.wait()
+                        if not self:IsTaken(Position) then
+                            Callback.Build(Position)
+                        end
                     if not self:IsTaken(Position) then
                         spawn(function()
                             PLACE_BLOCK:InvokeServer({
@@ -103,7 +103,7 @@ do
                                 upperSlab = false;
                             })
                         end)
-                        task.wait(.5)
+                        task.wait()
                     end
                 end
             end
